@@ -3,9 +3,9 @@
 class Database {
 
 private $dbhost = 'remotemysql.com';
-private $dbname = 'MB9Hk9Ogj0';
-private $dbuser = 'MB9Hk9Ogj0';
-private $dbpass = 'B3I5t6PQ1g';
+private $dbname = 'iiBZV2KW0H';
+private $dbuser = 'iiBZV2KW0H';
+private $dbpass = 'RJJrJRzBZ5';
 private $connection;
 
 public function __construct()
@@ -30,19 +30,18 @@ public function __construct()
 
     public function get_unosi() {
 
-        // $stmt = $this->connection->prepare(....);
-        $test = [];
+        $unosi = [];
 
         try {
 
-            $stmt = $this->connection->prepare("SELECT * FROM tablica_01");
+            $stmt = $this->connection->prepare("SELECT * FROM tekst");
             $stmt->execute();
 
             if($stmt->rowCount()) {
-                $test = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $unosi = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
 
-            return $test;
+            return $unosi;
 
         } catch(Exception $e) {
             echo $e->getMessage();
@@ -52,20 +51,18 @@ public function __construct()
     public function insert($params) {
         
         try {
-            
-            $this->connection->beginTransaction();
 
-            $test = intval($params['test']);
+            $id = $params['id'];
+            $tekst = $params['tekst'];
 
             $stmt = $this->connection->prepare(
-                "INSERT INTO tablica_01 (test) VALUES (:test)"
+                "INSERT INTO tekst (id, tekst) VALUES (:id, :tekst)"
             );
 
-            $stmt->bindParam(':test', $test);
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':tekst', $tekst);
 
             $stmt->execute();
-
-            $this->connection->commit();
 
         } catch (PDOException $e) {
             
@@ -73,6 +70,26 @@ public function __construct()
             throw $e;
         }
 
+    }
+
+    public function delete($params) {
+
+        try {
+
+            $id = $params['id'];
+
+            $stmt = $this->connection->prepare(
+                "DELETE FROM tekst WHERE id = :id"
+            );
+
+            $stmt->bindParam(':id', $id);
+
+            $stmt->execute();
+
+        } catch (PDOException $e) {
+            $this->connection->rollBack();
+            throw $e;
+        }
     }
 }
 
