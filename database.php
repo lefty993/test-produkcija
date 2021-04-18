@@ -64,6 +64,8 @@ public function __construct()
 
             $stmt->execute();
 
+            header('Location: index.php');
+
         } catch (PDOException $e) {
             
             $this->connection->rollBack();
@@ -72,7 +74,7 @@ public function __construct()
 
     }
 
-    public function delete($params) {
+    public function delete_text($params) {
 
         try {
 
@@ -86,9 +88,54 @@ public function __construct()
 
             $stmt->execute();
 
+            header('Location: index.php');
+
         } catch (PDOException $e) {
             $this->connection->rollBack();
             throw $e;
+        }
+    }
+
+    public function get_tekst($id) {
+
+        $tekst = [];
+
+            $stmt = $this->connection->prepare(
+                "SELECT * FROM tekst WHERE id = :id"
+            );
+
+            $stmt->bindParam(':id', $id);
+
+            $result = $stmt->execute();
+
+            if($stmt->rowCount()) {
+                $tekst = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+
+            return $tekst;
+
+    }
+
+    public function update_text($params) {
+
+        try {
+
+            $id = $params['id'];
+            $tekst = $params['tekst'];
+
+            $stmt = $this->connection->prepare(
+                "UPDATE tekst SET tekst = :tekst WHERE id = :id"
+            );
+
+            $stmt->bindParam('id', $id);
+            $stmt->bindParam('tekst', $tekst);
+
+            $stmt->execute();
+
+            header('Location: edit.php?id=' . $id);
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
         }
     }
 }

@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include 'database.php';
 
 echo '<h3>Ovo je naša druga aplikacija na produkciji!</h3>';
@@ -14,10 +18,10 @@ $unosi = $db->get_unosi();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(empty($_POST['tekst'])) {
-    echo 'Unesite tekst!';
+        echo 'Unesite tekst!';
     } else {
         $db->insert($_POST);
-        echo "<meta http-equiv='refresh' content='0'>";
+        // echo "<meta http-equiv='refresh' content='0'>";
     }
 }
 
@@ -28,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App</title>
+    <title>Početna</title>
 </head>
 <body>
     <form method="POST">
@@ -42,14 +46,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         <tr>
             <th>#</th>
             <th>Tekst</th>
-            <th>Akcije</th>
+            <th colspan="2">Akcije</th>
         </tr>
             <?php if(!empty($unosi)): ?>
                 <?php foreach($unosi as $unos): ?>
                     <tr>
                         <td><?php echo $unos['id']; ?></td>
                         <td><?php echo $unos['tekst']; ?></td>
-                        <td><a href="" >Ažuriraj</a> | <a href="" >Izbriši</a> </td>
+                        <td>
+                            <a href="edit.php?id=<?php echo $unos['id']; ?>" >Ažuriraj</a>
+                            |
+                            <a href="delete.php?id=<?php echo $unos['id'] ?>">Izbriši</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
