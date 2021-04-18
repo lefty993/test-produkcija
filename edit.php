@@ -40,6 +40,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="index.php"><<< Vrati se na početnu</a>
     <hr><br><br>
 
+    <h4>Ažurirajte postojeći unos</h4>
     <form method="POST">
         <input type="hidden" name="id" value="<?php echo $get_tekst['id'] ?>">
         <input type="text" name="tekst" value="<?php echo $get_tekst['tekst'] ?>"><br>

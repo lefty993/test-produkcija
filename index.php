@@ -21,7 +21,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'Unesite tekst!';
     } else {
         $db->insert($_POST);
-        // echo "<meta http-equiv='refresh' content='0'>";
     }
 }
 
@@ -49,9 +48,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             <th colspan="2">Akcije</th>
         </tr>
             <?php if(!empty($unosi)): ?>
+                <?php $i = 1; ?>
                 <?php foreach($unosi as $unos): ?>
                     <tr>
-                        <td><?php echo $unos['id']; ?></td>
+                        <td><?php echo $i; ?></td>
+                        <?php $i++ ?>
                         <td><?php echo $unos['tekst']; ?></td>
                         <td>
                             <a href="edit.php?id=<?php echo $unos['id']; ?>" >Ažuriraj</a>
@@ -61,6 +62,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
+            
     </table>
     <hr><br>
 
