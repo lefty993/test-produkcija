@@ -1,8 +1,9 @@
 {
     "name": "av-github/test-001",
     "description": "Testiranje GitHub Actions CI sustava",
+    "license": "MIT",
     "require": {
-        "php" : "7.4"
+        "php" : ">=7.3"
     },
     "require-dev": {
         "phpunit/phpunit" : "^9"
