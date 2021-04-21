@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include 'database.php';
+include 'classes/database.php';
 
 echo '<h3>Ovo je naša druga aplikacija na produkciji!</h3>';
 echo '<br><br><br>';

@@ -1,15 +1,28 @@
 <?php
 
+include 'DotEnv.php';
+
 class Database {
 
-private $dbhost = 'remotemysql.com';
-private $dbname = 'iiBZV2KW0H';
-private $dbuser = 'iiBZV2KW0H';
-private $dbpass = 'RJJrJRzBZ5';
+private $dbhost;
+private $dbname;
+private $dbuser;
+private $dbpass;
 private $connection;
 
 public function __construct()
     {
+
+        if(file_exists(__DIR__.'/../.env')) {
+            $dotenv = new DotEnv(__DIR__.'/../.env');
+            $dotenv->load();
+        }
+        
+        $this->dbhost = getenv('DB_HOST');
+        $this->dbname = getenv('DB_NAME');
+        $this->dbuser = getenv('DB_USER');
+        $this->dbpass = getenv('DB_PASS');
+
         $dsn = "mysql:host=".$this->dbhost.";dbname=".$this->dbname;
 
         try{
