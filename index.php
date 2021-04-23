@@ -11,6 +11,7 @@ echo '<br><br><br>';
 
 echo date('d.m.Y H:i:s', time());
 echo '<br><br><br><hr>';
+echo 'Evo nešto novo za Heroku';
 
 $db = new Database();
 
